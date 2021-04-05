@@ -109,4 +109,43 @@ const createEngineer = () => {
   });
 };
 
+const createIntern = () => {
+  inquirer
+  .prompt([
+    {
+      type: "input",
+      message: `Please enter Intern's name`,
+      name: "engineerName",
+    },
+    {
+      type: "input",
+      message: `What is the employee ID?`,
+      name: "internID",
+    },
+    {
+      type: "input",
+      message: `What is their email?`,
+      name: "internEmail",
+    },
+    {
+      type: "input",
+      message: `What is their office number?`,
+      name: "internOffice",
+    },
+  ])
+  .then(answers => {
+    const newIntern = new Intern(
+      answers.internName,
+      answers.internEmail,
+      answers.internOffice,
+      answers.internID
+    );
+    team.push(newIntern);
+    teamIds.push(answers.internID);
+    teamChoices();
+  });
+};
+
+
+
 startApp();
