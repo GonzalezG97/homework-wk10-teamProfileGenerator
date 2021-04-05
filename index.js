@@ -67,7 +67,7 @@ const teamChoices = () => {
           createIntern();
           break;
         case 'Finished':
-          createTeam();
+          finalPrompt();
       }
     });
 };
@@ -146,6 +146,25 @@ const createIntern = () => {
   });
 };
 
-
+const finalPrompt = () => {
+  inquirer.prompt([
+    {
+      type: 'list',
+      message: 'Have you added everyone from your team?',
+      name: 'teamDone',
+      choices: ['Yes', 'Not yet!']
+    },
+  ])
+  .then(answers => {
+    switch (answers.teamDone){
+      case 'Yes':
+        createTeam();
+        break;
+      case 'Not yet':
+        teamChoices();
+        break;
+    };
+  });
+}
 
 startApp();
