@@ -10,9 +10,7 @@ const teamIds = [];
 // Place to put directories
 // function to start prompts
 
-
 const startApp = () => {
-  const managerPrompts = () => {
     inquirer
       .prompt([
         {
@@ -36,45 +34,79 @@ const startApp = () => {
           name: "managerOffice",
         },
       ])
-      .then((answers) => {
-        const manager = new Manager(
+      .then(answers => {
+        const newManager = new Manager(
           answers.managerName,
           answers.managerEmail,
           answers.managerOffice,
           answers.managerID
         );
-        team.push(manager);
+        team.push(newManager);
         teamIds.push(answers.managerID);
         teamChoices();
-        
       });
-  };
-
-
+  
 };
 
 const teamChoices = () => {
-  inquirer.prompt([
-    {
-      type: "list",
-      message: `Do you want to add a team member?`,
-      name: "chosenEmployeeType",
-      choices: [Engineer, Intern, Finished],
-    },
-  ]).then(answers => {
-    switch (answers.chosenEmployeeType) {
-      case 'Engineer':
-        createEngineer();
-        break;
-      case 'Intern':
-        createIntern();
-        break;
-      case 'Finished':
-        createTeam();
-    }
-  });
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: `Do you want to add a team member?`,
+        name: "chosenEmployeeType",
+        choices: [Engineer, Intern, 'Finished'],
+      },
+    ])
+    .then(answers => {
+      switch (answers.chosenEmployeeType) {
+        case 'Engineer':
+          createEngineer();
+          break;
+        case 'Intern':
+          createIntern();
+          break;
+        case 'Finished':
+          createTeam();
+      }
+    });
 };
 
-
+const createEngineer = () => {
+  inquirer
+  .prompt([
+    {
+      type: "input",
+      message: `Please enter Engineer's name`,
+      name: "engineerName",
+    },
+    {
+      type: "input",
+      message: `What is the employee ID?`,
+      name: "engineerID",
+    },
+    {
+      type: "input",
+      message: `What is their email?`,
+      name: "engineerEmail",
+    },
+    {
+      type: "input",
+      message: `What is their office number?`,
+      name: "engineerOffice",
+    },
+  ])
+  .then(answers => {
+    const newEngineer = new Engineer(
+      answers.engineerName,
+      answers.engineerEmail,
+      answers.engineerOffice,
+      answers.engineerID
+    );
+    team.push(newEngineer);
+    teamIds.push(answers.engineerID);
+    teamChoices();
+  });
+};
 
 startApp();
