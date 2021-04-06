@@ -68,6 +68,7 @@ const teamChoices = () => {
           break;
         case 'Finished':
           finalPrompt();
+          break;
       }
     });
 };
@@ -103,6 +104,7 @@ const createEngineer = () => {
       answers.engineerOffice,
       answers.engineerID
     );
+    console.log(newEngineer.name);
     team.push(newEngineer);
     teamIds.push(answers.engineerID);
     teamChoices();
@@ -163,6 +165,7 @@ const finalPrompt = () => {
       case 'Not yet':
         teamChoices();
         break;
+        
     };
   });
 }
